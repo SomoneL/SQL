@@ -1,0 +1,34 @@
+--Creating my SQL database 'myCarLot' and creating the named columns 'id', 'carMake', 'price', 'carColor', 'carModel'.
+
+CREATE TABLE myCarLot(id INTEGER primary key, carMake TEXT, price INTEGER, carColor TEXT, carModel TEXT);
+
+--Inserting values into each table column (a total of 15 items)
+
+INSERT INTO myCarLot VALUES
+(1,"Pontiac", 6035,	"Mauv",	"Grand Prix"),
+(2,"Toyota",	36965, "Turquoise",	"Tundra"),
+(3,"GMC",	108695,	"Purple",	"Sierra Denali EV Edition 1"),
+(4,"Mercury", 75000,	"Violet",	"Cougar"),
+(5,"Spyker",	355000,	"Mauv",	"C8 Double 12 S"),
+(6,"Ferrari",	146083,	"Green",	"612 Scaglietti"),
+(7,"Mazda",	38900,	"Mauv",	"Miata MX-5"),
+(8,"Audi",	56900,	"Purple",	"A6"),
+(9,"Toyota",	16280,	"Indigo",	"T100"),
+(10,"Chevrolet",	9000,	"Fuscia",	"Lumina"),
+(11,"Smart",	15575,	"Crimson",	"Fortwo"),
+(12,"Kia",	23790,	"Goldenrod",	"Optima"),
+(13,"Lexus",	35000,	"Yellow",	"SC"),
+(14,"Nissa",	10000,	"White",	"Sentra"),
+(15,"Ford",	41000,	"Violet",	"Mustang");
+
+--Display the myCarLot ordered by price
+SELECT price FROM myCarLot ORDER BY price;
+
+--What is the average cost of each car in myCarLot?
+SELECT AVG(price) from myCarLot;
+
+--What are the 5 highest priced cars?
+SELECT carMake, carModel, price
+FROM myCarLot
+ORDER BY price desc
+limit 5;
