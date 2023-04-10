@@ -1,0 +1,55 @@
+/* Created table about singers and answered some questions about their highest rank songs.*/
+CREATE TABLE singers (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+fullname TEXT,
+age INTEGER,
+nationality TEXT);
+
+INSERT INTO singers (fullname, age, nationality) VALUES ("Beyonce", 41, "US");
+INSERT INTO singers (fullname, age, nationality) VALUES ("Doja Cat", 27, "US");
+INSERT INTO singers (fullname, age, nationality) VALUES ("SZA", 33, "US");
+INSERT INTO singers (fullname, age, nationality) VALUES ("Libianca", 22, "Cameroonian");
+INSERT INTO singers (fullname, age, nationality) VALUES ("Tems", 27, "Nigerian");
+
+CREATE TABLE highest_charting_song(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+singer_id INTEGER,
+song_name TEXT,
+song_peak INTEGER,
+chart_name TEXT);
+
+INSERT INTO highest_charting_song (singer_id, song_name, song_peak, chart_name) VALUES (1, "Irreplaceable", 1, "Hot 100");
+INSERT INTO highest_charting_song (singer_id, song_name, song_peak, chart_name) VALUES (2, "Say So ft. Nicki Minaj", 1, "Hot 100");
+INSERT INTO highest_charting_song (singer_id, song_name, song_peak, chart_name) VALUES (3, "Kill Bill",1, "Hot 100");
+INSERT INTO highest_charting_song (singer_id, song_name, song_peak, chart_name) VALUES (4, "People", 1, "UK Afrobeats");
+INSERT INTO highest_charting_song (singer_id, song_name, song_peak, chart_name) VALUES (5, "Free Mind", 1,"R&B/Hip-Hop");
+
+--Which singers are from the US and have a song that peaked at number 1 on the "Hot 100" chart?
+
+SELECT s.fullname,s.nationality, h.song_name 
+FROM singers s 
+JOIN highest_charting_song h 
+ON s.id = h.singer_id 
+WHERE s.nationality = 'US' 
+AND h.chart_name = 'Hot 100' 
+AND h.song_peak = 1;
+
+--Which singers have a song that peaked at number 1 on any chart, and what is the name of their highest charting song?
+SELECT s.fullname, h.song_name,h.song_peak, h.chart_name 
+FROM singers s 
+LEFT OUTER JOIN highest_charting_song h 
+ON s.id = h.singer_id 
+WHERE h.song_peak = 1;
+
+--How many singers are in each nationality group in the "singers" table?
+SELECT nationality, COUNT(*) 
+FROM singers 
+GROUP BY nationality;
+
+--Which singers in the "singers" table have a song that peaked at number 1 on any chart, or are from Nigeria?
+SELECT s.fullname, h.song_name, h.chart_name, s.nationality 
+FROM singers s 
+LEFT OUTER JOIN highest_charting_song h 
+ON s.id = h.singer_id 
+WHERE h.song_peak = 1 
+OR s.nationality = 'Nigerian';
