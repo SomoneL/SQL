@@ -1,0 +1,96 @@
+-- For this project, I downloaded Spotify Top 50 Songs of 2021 data from Kaggle, created a table to insert Spotify data into, 
+-- and finally I performed analytics on the data using SQL. 
+
+-- Step 1. Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+-- Step 2. Inserted the Spotify Data .csv into the table.
+
+-- Step 3. I explored the data using the following SQL. 
+
+
+
+
+--1. Who are the top 10 most popular artists in the database, based on their average track popularity score?
+
+SELECT artist_name, AVG(popularity) AS avg_popularity
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY avg_popularity DESC
+LIMIT 10;
+
+
+--2. What is the average danceability score of all tracks in the database? Which artist has the highest average danceability score?
+
+SELECT artist_name, AVG(danceability) avg_daceability
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY avg_daceability DESC;
+
+--3. What is the average energy score of all tracks in the database? Which artist has the highest average energy score?
+
+SELECT artist_name, AVG(energy) avg_energy
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY avg_energy DESC;
+
+
+--4. What is the most common key of all tracks in the database? Which key is the most and least common?
+
+--Most common key count
+SELECT song_key, COUNT(*) AS key_count
+FROM BIT_DB.Spotifydata
+GROUP BY song_key
+ORDER BY key_count DESC
+LIMIT 1;
+
+--Least common key count
+SELECT song_key, COUNT(*) AS key_count
+FROM BIT_DB.Spotifydata
+GROUP BY song_key
+ORDER BY key_count ASC
+LIMIT 1;
+
+--5. Which track has the highest loudness score in the database? Which track has the lowest loudness score?
+
+--Highest loudness score
+SELECT track_name,artist_name, loudness
+FROM BIT_DB.Spotifydata
+GROUP BY loudness
+ORDER BY loudness DESC
+LIMIT 1;
+
+--Lowest loudness score
+SELECT track_name,artist_name, loudness
+FROM BIT_DB.Spotifydata
+GROUP BY loudness
+ORDER BY loudness ASC
+LIMIT 1;
+
+
+--6. What is the average tempo of all tracks in the database? Which artist has the highest average tempo?
+
+SELECT artist_name, AVG(tempo) avg_tempo
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name
+ORDER BY avg_tempo ASC;
+
